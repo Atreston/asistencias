@@ -87,6 +87,7 @@ class AlumnoController extends Controller
      */
     public function destroy(Alumno $alumno)
     {
-        //
+        //changin some stug
+      
     }
 }
