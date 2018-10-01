@@ -14,7 +14,9 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        return view('alumnos.indexAlumno');
+      $alumnos = Alumno::all();
+      //$alumnos = ['nombre' => 'marcos', 'nombre' => 'omar'];
+      return view( 'alumnos.indexAlumno', compact( "alumnos" ) );   //Estudiar este caso
     }
 
     /**
@@ -38,6 +40,15 @@ class AlumnoController extends Controller
       //validar info 
       //insertar a base de datos
       //redireccionar
+      $alumno = new Alumno();
+      $alumno->nombre =$request->input('nombre');
+      $alumno->apellido = $request->input('apellidos');
+      $alumno->carrera = $request->carrera;
+      //dd($request->all()); Este metodo sirve para ver todos los datos almacenados en el envio del formulario
+      //dd($alumno);
+      $alumno->save();
+      //return redirect('/');
+      return redirect()->route('alumno.index');
     }
 
     /**

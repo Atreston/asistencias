@@ -148,12 +148,15 @@
       
       <div class="row">
         <div class="col-md-12">
+          
           <div class="tile">
-            <div class="tile-body">
-              Create a beautiful dashboard
-              @yield('contenido')
+            
+            <div class="tile-body">              
+                Create a beautiful dashboard
+                @yield('contenido')
             </div>
           </div>
+          
         </div>
       </div>
     </main>
