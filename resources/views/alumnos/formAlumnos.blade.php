@@ -41,7 +41,7 @@
     
     <input class="form-control" type="submit" value="submit">
     <!--  </form>-->
-    {{!! Form::close() !!}}
+    {!! Form::close() !!}
 </div>
 
 

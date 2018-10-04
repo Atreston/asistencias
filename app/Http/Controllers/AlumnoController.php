@@ -65,13 +65,15 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function show(Alumno $alumnum)
+    public function show($alumnum)
     {
         //$alumno = Alumno::with('category')->get()->find($codigo);
-        //$alumno = Alumno::with('codigo')->whereIn('codigo', $codigo)->get();
+        //$alumnum = Alumno::whereIn('codigo', $alumnum->codigo)->get();
         //->with(['id' => $id, 'nombre' => "Prog-para internet"]);
         //return view('alumnos.showAlumno', $alumno)->with(['materia' => $materium]);
-        return view('alumnos.showAlumno')->with(['alumno' => $alumnum]);
+        //dd($alumnum);
+        //return view('alumnos.showAlumno')->with(['alumno' => $alumnum]);
+        return view('alumnos.showAlumno');
     }
 
     /**
@@ -83,7 +85,7 @@ class AlumnoController extends Controller
     public function edit(Alumno $alumnum)
     {
         //return view('alumnos.formEditAlumno', compact('alumno'));
-        return view('alumnos.formAlumnos')->with(['alumno' => $alumnum]);
+        return view('alumnos.formAlumnos')->with(['alumno' => $alumnums]);
     }
 
     /**
@@ -108,7 +110,7 @@ class AlumnoController extends Controller
         //        Alumno::where('id', $alumno->id)->update($request->all() );
         Alumno::where( 'id', $alumnum->id )->update( $request->except('_token', '_method') );
 
-        return redirect()->route('alumno.show', $alumnum->id);
+        return redirect()->route('alumno.show')->with(['alumno' => $alumnum]);
     }
 
     /**

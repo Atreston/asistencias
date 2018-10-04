@@ -35,7 +35,7 @@ Route::get('/alumno/show/{alumno}', 'AlumnoController@show');
 Route::get('/alumno/edit/{alumno}', 'AlumnoController@edit');
 Route::get('/alumno/update', 'AlumnoController@update');
 */
-Route::resource('alumno', 'AlumnoController');
+Route::resource('alumno', 'AlumnoController')->parameters( ['alumno' => 'alumnum'] );
 
 /*
 Route::get('/alumnos', 'AlumnoController@index');

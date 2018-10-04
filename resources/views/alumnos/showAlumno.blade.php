@@ -2,37 +2,46 @@
 
 @section('contenido')
 
-<table class="table table-striped"> 
-	<thead> 
-		<tr> 
-			<th>#</th> 
-			<th>Codigo</th> 
-			<th>Nombre</th>
-			<th>Carrera</th> 
-		</tr> 
-	</thead> 
-	
-	<tbody> 
-		
-		<tr> 
-			<td>{{ $alumno->id }}</td> 
-			<td>{{ $alumno->codigo }}</td>
-			<td>{{ $alumno->nombre }}</td> 
-			<td>{{ $alumno->carrera }}</td> 
-		</tr> 
-		
-	</tbody> 
-</table>
+@if( isset( $alumno ))
 
-<!-- colocar enlace de editar alumno con get -->
+    <table class="table table-striped"> 
+        <thead> 
+            <tr> 
+                <th>#</th> 
+                <th>Codigo</th> 
+                <th>Nombre</th>
+                <th>Carrera</th> 
+            </tr> 
+        </thead> 
 
-<!-- <a class="btn btn-warning" href="{{ route('materia.edit', $materia->id) }}"> Editar</a>
--->
+        <tbody> 
 
-<a class="btn btn-warning" href="{{ route('alumnos.formEditAlumno', $alumno->id) }}"> Editar</a>
+            <tr> 
+                <td>{{ $alumno->id }}</td> 
+                <td>{{ $alumno->codigo }}</td>
+                <td>{{ $alumno->nombre }}</td> 
+                <td>{{ $alumno->carrera }}</td> 
+            </tr> 
 
-<a class="btn btn-warning" href="{{ route('materia.edit', $materia->id) }}"> Editar</a>
+        </tbody> 
+    </table>
 
-<!-- Colocar boton de eliminar -->
+    <!-- colocar enlace de editar alumno con get -->
+
+    <!-- <a class="btn btn-warning" href="{{--' route('materia.edit', $materia->id) --}}"> Editar</a>-->
+
+    <a class="btn btn-warning" href="{{ route('alumno.edit', $alumno) }}"> Editar</a>
+
+    <a class="btn btn-warning" href="{{ route('alumno.destroy', $alumno) }}">Borrar</a>
+
+    <!-- Colocar boton de eliminar -->
+
+@else
+
+    No existe el alumno
+
+@endif
+
+
 
 @endsection
