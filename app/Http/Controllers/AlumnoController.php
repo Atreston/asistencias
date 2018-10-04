@@ -37,18 +37,26 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
-      //validar info 
-      //insertar a base de datos
-      //redireccionar
-      $alumno = new Alumno();
-      $alumno->nombre =$request->input('nombre');
-      $alumno->apellido = $request->input('apellidos');
-      $alumno->carrera = $request->carrera;
-      //dd($request->all()); Este metodo sirve para ver todos los datos almacenados en el envio del formulario
-      //dd($alumno);
-      $alumno->save();
-      //return redirect('/');
-      return redirect()->route('alumno.index');
+        //validar info 
+        //insertar a base de datos
+        //redireccionar
+        //$alumno = new Alumno();
+        //$alumno->nombre =$request->input('nombre');
+        //$alumno->codigo = $request->input('codigo');
+        //$alumno->carrera = $request->carrera;
+        //dd($request->all()); Este metodo sirve para ver todos los datos almacenados en el envio del formulario
+        //dd($alumno);
+        //$alumno->save();
+        //return redirect('/');
+        //return redirect()->route('alumno.index');
+
+        //$request->validate([
+            //'nombre' => 'required|min:20'
+            //'codigo' => 'required|max:10'
+            //'carrera' => 'required|max:25'
+        //]);
+        Alumno::create( $request->all() );
+        return redirect()->route('alumnos.indexAlumnos');
     }
 
     /**
@@ -57,11 +65,13 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function show($alumno = "nada")
+    public function show(Alumno $alumnum)
     {
-      dd($alumno);
-      return view('alumnos.showAlumno', compact('alumno'));
-      //->with(['id' => $id, 'nombre' => "Prog-para internet"]);
+        //$alumno = Alumno::with('category')->get()->find($codigo);
+        //$alumno = Alumno::with('codigo')->whereIn('codigo', $codigo)->get();
+        //->with(['id' => $id, 'nombre' => "Prog-para internet"]);
+        //return view('alumnos.showAlumno', $alumno)->with(['materia' => $materium]);
+        return view('alumnos.showAlumno')->with(['alumno' => $alumnum]);
     }
 
     /**
@@ -70,9 +80,10 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function edit($alumno)
+    public function edit(Alumno $alumnum)
     {
-        return view('alumnos.formEditAlumno', compact('alumno'));
+        //return view('alumnos.formEditAlumno', compact('alumno'));
+        return view('alumnos.formAlumnos')->with(['alumno' => $alumnum]);
     }
 
     /**
@@ -82,12 +93,22 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alumno $alumno)
+    public function update(Request $request, Alumno $alumnum)
     {
         //validar info
-  //$alumno = $_POST['alumno'];
-  //actualizar base de datos
-  //redireccionar /alumno/show/$id
+        //$alumno = $_POST['alumno'];
+        //actualizar base de datos
+        //redireccionar /alumno/show/$id
+
+        //$alumno->nombre =$request->input('nombre');
+        //$alumno->codigo = $request->input('codigo');
+        //$alumno->carrera = $request->carrera;
+        //$alumno->save();
+
+        //        Alumno::where('id', $alumno->id)->update($request->all() );
+        Alumno::where( 'id', $alumnum->id )->update( $request->except('_token', '_method') );
+
+        return redirect()->route('alumno.show', $alumnum->id);
     }
 
     /**
@@ -96,9 +117,10 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alumno $alumno)
+    public function destroy(Alumno $alumnum)
     {
         //changin some stug
-      
+        $alumnum->delete();
+        return redirect()->route('alumnos.indexAlumnos');
     }
 }

@@ -14,10 +14,10 @@ class CreaTablaAlumnos extends Migration
     public function up()
     {
         Schema::create('alumnos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+          $table->increments('id');
+          $table->timestamps();
           $table->string('nombre');
-          $table->string('apellido');
+          $table->string('codigo');
           $table->string('carrera');
         });
     }
