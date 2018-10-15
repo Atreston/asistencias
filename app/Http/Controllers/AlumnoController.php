@@ -12,6 +12,12 @@ class AlumnoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
       $alumnos = Alumno::all();
@@ -55,8 +61,14 @@ class AlumnoController extends Controller
             //'codigo' => 'required|max:10'
             //'carrera' => 'required|max:25'
         //]);
+        //$request->validate([**]);
+        /*
+        $materia = new Materia();
+        $materia = Auth::id();  //Requiere importar Auth Facade
+        */
+        $request->merge( ['user_id' => \Auth::id()] ); //Se debe combinar el user_id antes de recibir los datos del formulario
         Alumno::create( $request->all() );
-        return redirect()->route('alumnos.indexAlumnos');
+        return redirect()->route('alumno.index');
     }
 
     /**
@@ -64,8 +76,8 @@ class AlumnoController extends Controller
      *
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
-     */
-    public function show($alumnum)
+     */     
+    public function show(Alumno $alumno /*$alumnum*/)
     {
         //$alumno = Alumno::with('category')->get()->find($codigo);
         //$alumnum = Alumno::whereIn('codigo', $alumnum->codigo)->get();
@@ -73,7 +85,10 @@ class AlumnoController extends Controller
         //return view('alumnos.showAlumno', $alumno)->with(['materia' => $materium]);
         //dd($alumnum);
         //return view('alumnos.showAlumno')->with(['alumno' => $alumnum]);
-        return view('alumnos.showAlumno');
+        App/Materia;    //esta linea puede agregarse hasta arriba, en las declaraciones de use
+        $materias = Materia::all();
+        return view('alumnos.showAlumno', compact('alumno', 'materias') );
+        //return view('alumnos.showAlumno');
     }
 
     /**
@@ -85,7 +100,7 @@ class AlumnoController extends Controller
     public function edit(Alumno $alumnum)
     {
         //return view('alumnos.formEditAlumno', compact('alumno'));
-        return view('alumnos.formAlumnos')->with(['alumno' => $alumnums]);
+        return view('alumnos.formAlumnos')->with(['alumno' => $alumnum]);
     }
 
     /**

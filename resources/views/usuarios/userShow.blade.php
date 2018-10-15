@@ -15,12 +15,12 @@
 	<tbody> 
 		@foreach($alumnos as $alumno) 
 		<tr> 
-			<td>{{ $alumno->id }}</td> 
+			<td>1</td> 
 			<td>{{ $alumno->codigo }}</td>
 			<td>{{ $alumno->nombre }}</td> 
 			<td>{{ $alumno->carrera }}</td>
             <!--<td>{{ $alumno->user }}</td>-->
-            <td>{{ $alumno->name }}</td>
+            <td>{{ $alumno->user->name }}</td>
 		</tr> 
 		@endforeach  
 	</tbody> 

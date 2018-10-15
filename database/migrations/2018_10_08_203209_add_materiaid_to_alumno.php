@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreaTablaAlumnos extends Migration
+class AddMateriaidToAlumno extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreaTablaAlumnos extends Migration
      */
     public function up()
     {
-        Schema::create('alumnos', function (Blueprint $table) {
-          $table->increments('id');
-          $table->string('nombre');
-          $table->string('codigo');
-          $table->string('carrera');
-          $table->timestamps();
+        Schema::table('materias', function (Blueprint $table) {
+            $table->unsignedInteger('user_id')->after('id');
         });
     }
 
@@ -29,6 +25,8 @@ class CreaTablaAlumnos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alumnos');
+        Schema::table('materias', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 }
