@@ -70,9 +70,6 @@
     </div> <!-- col-lg-12 -->
 </div> <!-- row -->
 
-
-
-
 <!-- =========== Lo siguiente forma parte de un template de ejemplo =============
 <div class="col-lg-6">
     <form>

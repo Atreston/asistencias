@@ -41,10 +41,10 @@ class AlumnoMateriaController extends Controller
     {
         //dd( $request->input('materias') );
         //dd( $alumno );
-        $materia = Materia::find($request->input('materias');
-        $alumno->materias()->attach( $materia );
+        $materium = Materia::find($request->input('materias') );
+        $alumno->materias()->attach( $materium );
         //return route('alumno.show', ['alumnum', $alumno]);
-        return route('alumno.materia.show', $alumno );
+        return route('alumno.materia.show', ['materiun', $materium] );
     }
 
     /**
@@ -93,6 +93,7 @@ class AlumnoMateriaController extends Controller
      */
     public function destroy(Alumno $alumno, Materia $materum)
     {
+        dd( $alumno, $materia );
         $alumno->materias()->detach($materium);
         return route('alumno.show', ['alumnum' => $alumno]);
     }
