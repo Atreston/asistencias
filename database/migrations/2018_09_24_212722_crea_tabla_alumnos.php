@@ -18,6 +18,7 @@ class CreaTablaAlumnos extends Migration
           $table->string('nombre');
           $table->string('codigo');
           $table->string('carrera');
+          //$table->rememberToken();
           $table->timestamps();
         });
     }

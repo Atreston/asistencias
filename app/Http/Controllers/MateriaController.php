@@ -15,7 +15,8 @@ class MateriaController extends Controller
      */
     public function index()
     {
-        //
+        $materias = Materia::all();
+        return view('materias.index')->with('materias', $materias);
     }
 
     /**
@@ -25,7 +26,7 @@ class MateriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('materias.form');
     }
 
     /**
@@ -45,7 +46,7 @@ class MateriaController extends Controller
         //como parametro, le paso el usuario que tengo en memoria
         $user->materias()->save($materia);
         
-        return redirect()->route('materia.index');
+        return redirect()->route('Materias.index');
     }
 
     /**
@@ -54,9 +55,9 @@ class MateriaController extends Controller
      * @param  \App\Materia  $materia
      * @return \Illuminate\Http\Response
      */
-    public function show(Materia $materia)
+    public function show(Materia $Materia)
     {
-        //
+        return view('materias.show')->with('materia', $Materia);
     }
 
     /**

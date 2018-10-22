@@ -16,7 +16,7 @@ class AlumnoMateriaController extends Controller
      */
     public function index(Alumno $alumno)
     {
-        //
+        
     }
 
     /**
@@ -25,9 +25,9 @@ class AlumnoMateriaController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function create(Alumno $alumno)
+    public function create(Alumno $alumno, Materia $materium)
     {
-        //
+        
     }
 
     /**
@@ -39,7 +39,12 @@ class AlumnoMateriaController extends Controller
      */
     public function store(Request $request, Alumno $alumno)
     {
-        //
+        //dd( $request->input('materias') );
+        //dd( $alumno );
+        $materia = Materia::find($request->input('materias');
+        $alumno->materias()->attach( $materia );
+        //return route('alumno.show', ['alumnum', $alumno]);
+        return route('alumno.materia.show', $alumno );
     }
 
     /**
@@ -86,8 +91,9 @@ class AlumnoMateriaController extends Controller
      * @param  \App\Materia  $materia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alumno $alumno, Materia $materia)
+    public function destroy(Alumno $alumno, Materia $materum)
     {
-        //
+        $alumno->materias()->detach($materium);
+        return route('alumno.show', ['alumnum' => $alumno]);
     }
 }

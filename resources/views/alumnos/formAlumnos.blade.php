@@ -2,49 +2,69 @@
 
 @section('contenido')
 
+<div class="row">
+    <div class="col-lg-12">
 
-<div class="col-lg-12">
+        @if ( $errors->any() )
+            <div class="alert alert-danger">
+                <ul>
+                @foreach ( $errors->all() as $error )
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+        @endif
+        
+        <div class="tile">
+            <div class="tile-body">
+                
+                @if( isset($alumno) )
+                <!-- La clase Form requiere instalar laravelcollective por medio de un comando  -->
+                <!-- en composer: composer require "laravelcollective/html":"^5.4.0"            -->
+                <!-- Tambien se especifica que debe agregarse la siguiente line dentro del array-->
+                <!-- de 'providers' dentro de config/app.php :                                  -->
+                <!-- Collective\Html\HtmlServiceProvider::class,                                -->
+                <!-- la linea incluye una coma al final                                         -->
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            </ul>
-        </div>
-    @endif
+                <!-- el metodo form se abre con las llaves {--!! !!--} para especificar que se      -->
+                <!-- cargaran caracteres html sin formato.                                      -->
 
-    @if( isset($alumno) )
-        <!-- {!! Form::open(['route' => 'route.name']) !!} -->
-        {!! Form::model($alumno, ['route' => ['alumno.update', $alumno->id], 'method' => 'PATCH']) !!}
-        <!-- <form action="{{ route('alumno.update', $alumno->id) }}" method="POST"></form> -->
-    @else
-        {!! Form::open( ['route' => 'alumno.store'] ) !!}
-        <!-- <form action="{{ route('alumno.store') }}" method="POST"></form> -->
-        <!-- <input type="hidden" name="_method" value="PATCH"> -->
-    @endif
-    <!--  <form action="{{ action('AlumnoController@store') }}" method="POST">-->
-    {{-- csrf_field() --}}
-    
-    <label for="alumno">Nombre completo:</label>
-    <!-- <input class="form-control" type="text" name="nombre" value="{{ isset( $alumno ) ? $alumno->nombre : '' }}"> -->
-    {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del alumno']); !!}
+                <!-- El metodo Form::open() abre un formulario con campos vacios                -->
+                <!-- {--!! Form::open(['route' => 'route.name']) !!--} -->
 
-    <label for="codigo">Codigo:</label>
-    <!--    <input class="form-control" type="text" name="codigo">-->
-    {!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Codigo del alumno']); !!}
-    
-    <label for="">Carrera:</label>
-    <!--    <input class="form-control" type="text" name="carrera">-->
-    {!! Form::text('carrera', null, ['class' => 'form-control', 'placeholder' => 'Carrera']); !!}
-    
-    <input class="form-control" type="submit" value="submit">
-    <!--  </form>-->
-    {!! Form::close() !!}
-</div>
+                <!-- El metodo Form::model() abre un formulario y lo precarga con los datos de  -->
+                <!-- un modelo ya definido, empatando los atributos del modelo con los nombres  -->
+                <!-- de las etiquetas de formulario.                                            -->
+                {!! Form::model($alumno, ['route' => ['alumno.update', $alumno->id], 'method' => 'PATCH']) !!}
 
+                <!-- <form action="{{ route('alumno.update', $alumno->id) }}" method="POST"></form> -->
+                @else
+                {!! Form::open( ['route' => 'alumno.store'] ) !!}
+                <!-- <form action="{{ route('alumno.store') }}" method="POST"></form> -->
+                <!-- <input type="hidden" name="_method" value="PATCH"> -->
+                @endif
+                <!--  <form action="{{ action('AlumnoController@store') }}" method="POST">-->
+                {{-- csrf_field() --}}
 
+                <label for="nombre">Nombre completo:</label>
+                <!-- <input class="form-control" type="text" name="nombre" value="{{ isset( $alumno ) ? $alumno->nombre : '' }}"> -->
+                {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del alumno']); !!}
+
+                <label for="codigo">Codigo:</label>
+                <!--    <input class="form-control" type="text" name="codigo">-->
+                {!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Codigo del alumno']); !!}
+
+                <label for="carrera">Carrera:</label>
+                <!--    <input class="form-control" type="text" name="carrera">-->
+                {!! Form::text('carrera', null, ['class' => 'form-control', 'placeholder' => 'Carrera']); !!}
+
+                <input class="form-control" type="submit" value="submit">
+                <!--  </form>-->
+                {!! Form::close() !!}
+            </div> <!-- tile-body -->
+        </div> <!-- tile -->
+    </div> <!-- col-lg-12 -->
+</div> <!-- row -->
 
 <!-- =========== Lo siguiente forma parte de un template de ejemplo =============
 <div class="col-lg-6">

@@ -14,6 +14,7 @@ class Materia extends Model
     }
     
     public function alumnos(){      //10/10/18
-        return $this->belongsToMany(Alumno::class);
+        //return $this->belongsToMany(Alumno::class) ;
+        return $this->belongsToMany(Alumno::class)->withPivot('test');
     }
 }

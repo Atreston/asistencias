@@ -20,6 +20,7 @@ class CreateMateriasTable extends Migration
             $table->string('seccion');
             $table->string('crn');
             $table->string('salon');
+            //$table->rememberToken();
             $table->timestamps();
         });
     }

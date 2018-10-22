@@ -1,52 +1,75 @@
 <?php $__env->startSection('contenido'); ?>
 
+<div class="row">
+    <div class="col-lg-12">
 
-<div class="col-lg-12">
+        <?php if( $errors->any() ): ?>
+            <div class="alert alert-danger">
+                <ul>
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+        
+        <div class="tile">
+            <div class="tile-body">
+                
+                <?php if( isset($alumno) ): ?>
+                <!-- La clase Form requiere instalar laravelcollective por medio de un comando  -->
+                <!-- en composer: composer require "laravelcollective/html":"^5.4.0"            -->
+                <!-- Tambien se especifica que debe agregarse la siguiente line dentro del array-->
+                <!-- de 'providers' dentro de config/app.php :                                  -->
+                <!-- Collective\Html\HtmlServiceProvider::class,                                -->
+                <!-- la linea incluye una coma al final                                         -->
 
-    <?php if($errors->any()): ?>
-        <div class="alert alert-danger">
-            <ul>
-            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <li><?php echo e($error); ?></li>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+                <!-- el metodo form se abre con las llaves {--!! !!--} para especificar que se      -->
+                <!-- cargaran caracteres html sin formato.                                      -->
 
-    <?php if( isset($alumno) ): ?>
-        <!-- <?php echo Form::open(['route' => 'route.name']); ?> -->
-        <?php echo Form::model($alumno, ['route' => ['alumno.update', $alumno->id], 'method' => 'PATCH']); ?>
+                <!-- El metodo Form::open() abre un formulario con campos vacios                -->
+                <!-- {--!! Form::open(['route' => 'route.name']) !!--} -->
 
-        <!-- <form action="<?php echo e(route('alumno.update', $alumno->id)); ?>" method="POST"></form> -->
-    <?php else: ?>
-        <?php echo Form::open( ['route' => 'alumno.store'] ); ?>
-
-        <!-- <form action="<?php echo e(route('alumno.store')); ?>" method="POST"></form> -->
-        <!-- <input type="hidden" name="_method" value="PATCH"> -->
-    <?php endif; ?>
-    <!--  <form action="<?php echo e(action('AlumnoController@store')); ?>" method="POST">-->
-    
-    
-    <label for="alumno">Nombre completo:</label>
-    <!-- <input class="form-control" type="text" name="nombre" value="<?php echo e(isset( $alumno ) ? $alumno->nombre : ''); ?>"> -->
-    <?php echo Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del alumno']);; ?>
+                <!-- El metodo Form::model() abre un formulario y lo precarga con los datos de  -->
+                <!-- un modelo ya definido, empatando los atributos del modelo con los nombres  -->
+                <!-- de las etiquetas de formulario.                                            -->
+                <?php echo Form::model($alumno, ['route' => ['alumno.update', $alumno->id], 'method' => 'PATCH']); ?>
 
 
-    <label for="codigo">Codigo:</label>
-    <!--    <input class="form-control" type="text" name="codigo">-->
-    <?php echo Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Codigo del alumno']);; ?>
+                <!-- <form action="<?php echo e(route('alumno.update', $alumno->id)); ?>" method="POST"></form> -->
+                <?php else: ?>
+                <?php echo Form::open( ['route' => 'alumno.store'] ); ?>
 
-    
-    <label for="">Carrera:</label>
-    <!--    <input class="form-control" type="text" name="carrera">-->
-    <?php echo Form::text('carrera', null, ['class' => 'form-control', 'placeholder' => 'Carrera']);; ?>
+                <!-- <form action="<?php echo e(route('alumno.store')); ?>" method="POST"></form> -->
+                <!-- <input type="hidden" name="_method" value="PATCH"> -->
+                <?php endif; ?>
+                <!--  <form action="<?php echo e(action('AlumnoController@store')); ?>" method="POST">-->
+                
 
-    
-    <input class="form-control" type="submit" value="submit">
-    <!--  </form>-->
-    <?php echo Form::close(); ?>
+                <label for="nombre">Nombre completo:</label>
+                <!-- <input class="form-control" type="text" name="nombre" value="<?php echo e(isset( $alumno ) ? $alumno->nombre : ''); ?>"> -->
+                <?php echo Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Nombre del alumno']);; ?>
 
-</div>
+
+                <label for="codigo">Codigo:</label>
+                <!--    <input class="form-control" type="text" name="codigo">-->
+                <?php echo Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Codigo del alumno']);; ?>
+
+
+                <label for="carrera">Carrera:</label>
+                <!--    <input class="form-control" type="text" name="carrera">-->
+                <?php echo Form::text('carrera', null, ['class' => 'form-control', 'placeholder' => 'Carrera']);; ?>
+
+
+                <input class="form-control" type="submit" value="submit">
+                <!--  </form>-->
+                <?php echo Form::close(); ?>
+
+            </div> <!-- tile-body -->
+        </div> <!-- tile -->
+    </div> <!-- col-lg-12 -->
+</div> <!-- row -->
+
 
 
 

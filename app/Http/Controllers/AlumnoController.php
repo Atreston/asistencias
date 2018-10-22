@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Alumno;
+use App\Materia;
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
@@ -77,7 +78,7 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */     
-    public function show(Alumno $alumno /*$alumnum*/)
+    public function show(Alumno $alumnum /*$alumnum*/)
     {
         //$alumno = Alumno::with('category')->get()->find($codigo);
         //$alumnum = Alumno::whereIn('codigo', $alumnum->codigo)->get();
@@ -85,10 +86,11 @@ class AlumnoController extends Controller
         //return view('alumnos.showAlumno', $alumno)->with(['materia' => $materium]);
         //dd($alumnum);
         //return view('alumnos.showAlumno')->with(['alumno' => $alumnum]);
-        App/Materia;    //esta linea puede agregarse hasta arriba, en las declaraciones de use
+        //App\Materia;    //esta linea puede agregarse hasta arriba, en las declaraciones de use
+        //$materias = Materia::all();
+        //return view('alumnos.showAlumno', compact('alumno', 'materias') );
         $materias = Materia::all();
-        return view('alumnos.showAlumno', compact('alumno', 'materias') );
-        //return view('alumnos.showAlumno');
+        return view('alumnos.showAlumno')->with(['alumno' => $alumnum, 'materias' => $materias]);
     }
 
     /**
@@ -122,10 +124,10 @@ class AlumnoController extends Controller
         //$alumno->carrera = $request->carrera;
         //$alumno->save();
 
-        //        Alumno::where('id', $alumno->id)->update($request->all() );
+        //Alumno::where('id', $alumno->id)->update($request->all() );
         Alumno::where( 'id', $alumnum->id )->update( $request->except('_token', '_method') );
 
-        return redirect()->route('alumno.show')->with(['alumno' => $alumnum]);
+        return redirect()->route('alumno.show', $alumnum);
     }
 
     /**
