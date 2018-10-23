@@ -23,10 +23,10 @@ Route::get('/inicio', function () {
   return view('inicio');
 });
 
-Auth::routes();
+Route::resource('alumno.materia', 'AlumnoMateriaController');
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::resource('Materias', 'MateriaController');
 /*
 Route::get('/alumno/listado', 'AlumnoController@index');
 Route::get('/alumno/create', 'AlumnoController@create');
@@ -35,8 +35,8 @@ Route::get('/alumno/show/{alumno}', 'AlumnoController@show');
 Route::get('/alumno/edit/{alumno}', 'AlumnoController@edit');
 Route::get('/alumno/update', 'AlumnoController@update');
 */
-Route::resource('alumno', 'AlumnoController');
-
+Route::resource('alumno', 'AlumnoController')->parameters( ['alumno' => 'alumnum'] );
+Route::resource('user', 'UserController');
 /*
 Route::get('/alumnos', 'AlumnoController@index');
 

@@ -145,20 +145,11 @@
       </div>
       -->
       
-      
-      <div class="row">
-        <div class="col-md-12">
-          
-          <div class="tile">
+      @yield('contenido')
+                   
+                <!-- Create a beautiful dashboard -->
+                
             
-            <div class="tile-body">              
-                Create a beautiful dashboard
-                @yield('contenido')
-            </div>
-          </div>
-          
-        </div>
-      </div>
     </main>
     <!-- Essential javascripts for application to work-->
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>

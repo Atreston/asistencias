@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Alumno;
+use App\Materia;
 use Illuminate\Http\Request;
 
 class AlumnoController extends Controller
@@ -12,6 +13,12 @@ class AlumnoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
       $alumnos = Alumno::all();
@@ -37,18 +44,32 @@ class AlumnoController extends Controller
      */
     public function store(Request $request)
     {
-      //validar info 
-      //insertar a base de datos
-      //redireccionar
-      $alumno = new Alumno();
-      $alumno->nombre =$request->input('nombre');
-      $alumno->apellido = $request->input('apellidos');
-      $alumno->carrera = $request->carrera;
-      //dd($request->all()); Este metodo sirve para ver todos los datos almacenados en el envio del formulario
-      //dd($alumno);
-      $alumno->save();
-      //return redirect('/');
-      return redirect()->route('alumno.index');
+        //validar info 
+        //insertar a base de datos
+        //redireccionar
+        //$alumno = new Alumno();
+        //$alumno->nombre =$request->input('nombre');
+        //$alumno->codigo = $request->input('codigo');
+        //$alumno->carrera = $request->carrera;
+        //dd($request->all()); Este metodo sirve para ver todos los datos almacenados en el envio del formulario
+        //dd($alumno);
+        //$alumno->save();
+        //return redirect('/');
+        //return redirect()->route('alumno.index');
+
+        //$request->validate([
+            //'nombre' => 'required|min:20'
+            //'codigo' => 'required|max:10'
+            //'carrera' => 'required|max:25'
+        //]);
+        //$request->validate([**]);
+        /*
+        $materia = new Materia();
+        $materia = Auth::id();  //Requiere importar Auth Facade
+        */
+        $request->merge( ['user_id' => \Auth::id()] ); //Se debe combinar el user_id antes de recibir los datos del formulario
+        Alumno::create( $request->all() );
+        return redirect()->route('alumno.index');
     }
 
     /**
@@ -56,12 +77,20 @@ class AlumnoController extends Controller
      *
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
-     */
-    public function show($alumno = "nada")
+     */     
+    public function show(Alumno $alumnum /*$alumnum*/)
     {
-      dd($alumno);
-      return view('alumnos.showAlumno', compact('alumno'));
-      //->with(['id' => $id, 'nombre' => "Prog-para internet"]);
+        //$alumno = Alumno::with('category')->get()->find($codigo);
+        //$alumnum = Alumno::whereIn('codigo', $alumnum->codigo)->get();
+        //->with(['id' => $id, 'nombre' => "Prog-para internet"]);
+        //return view('alumnos.showAlumno', $alumno)->with(['materia' => $materium]);
+        //dd($alumnum);
+        //return view('alumnos.showAlumno')->with(['alumno' => $alumnum]);
+        //App\Materia;    //esta linea puede agregarse hasta arriba, en las declaraciones de use
+        //$materias = Materia::all();
+        //return view('alumnos.showAlumno', compact('alumno', 'materias') );
+        $materias = Materia::all();
+        return view('alumnos.showAlumno')->with(['alumno' => $alumnum, 'materias' => $materias]);
     }
 
     /**
@@ -70,9 +99,10 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function edit($alumno)
+    public function edit(Alumno $alumnum)
     {
-        return view('alumnos.formEditAlumno', compact('alumno'));
+        //return view('alumnos.formEditAlumno', compact('alumno'));
+        return view('alumnos.formAlumnos')->with(['alumno' => $alumnum]);
     }
 
     /**
@@ -82,12 +112,22 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alumno $alumno)
+    public function update(Request $request, Alumno $alumnum)
     {
         //validar info
-  //$alumno = $_POST['alumno'];
-  //actualizar base de datos
-  //redireccionar /alumno/show/$id
+        //$alumno = $_POST['alumno'];
+        //actualizar base de datos
+        //redireccionar /alumno/show/$id
+
+        //$alumno->nombre =$request->input('nombre');
+        //$alumno->codigo = $request->input('codigo');
+        //$alumno->carrera = $request->carrera;
+        //$alumno->save();
+
+        //Alumno::where('id', $alumno->id)->update($request->all() );
+        Alumno::where( 'id', $alumnum->id )->update( $request->except('_token', '_method') );
+
+        return redirect()->route('alumno.show', $alumnum);
     }
 
     /**
@@ -96,9 +136,10 @@ class AlumnoController extends Controller
      * @param  \App\Alumno  $alumno
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alumno $alumno)
+    public function destroy(Alumno $alumnum)
     {
         //changin some stug
-      
+        $alumnum->delete();
+        return redirect()->route('alumnos.indexAlumnos');
     }
 }

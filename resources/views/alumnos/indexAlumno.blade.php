@@ -2,50 +2,39 @@
 
 @section('contenido')
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Nombre</th>
-      <th>Apellidos</th>
-      <th>Carrera</th>
-      <th>Correo</th>
-    </tr>
-  </thead>
-  <tbody>
-   
-    @foreach($alumnos as $alumno)
-    <tr>
-      <td>1</td>
-      <td>{{ $alumno->nombre }}</td>
-      <td>{{ $alumno->apellido }}</td>
-      <td>{{ $alumno->carrera }}</td>
-      <td>{{ $alumno->correo }}</td>
-    </tr>
-    @endforeach
-
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>@mdo</td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <table class="table table-striped"> 
+                    <thead> 
+                    <tr>
+                        <th>#</th> 
+                        <th>Codigo</th> 
+                        <th>Nombre</th>
+                        <th>Carrera</th> 
+                    </tr> 
+                    </thead>
+                    
+                    <tbody> 
+                        @foreach($alumnos as $alumno) 
+                        <tr>
+                            <td>{{ $alumno->id }}</td> 
+                            <td>{{ $alumno->codigo }}</td>
+                            <td>{{ $alumno->nombre }}</td> 
+                            <td>{{ $alumno->carrera }}</td>
+                            <!--<td>{{ $alumno->user }}</td>-->
+                            <td>{{ $alumno->name }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                
+                <!-- <a class="btn btn-warning" href="{{ route('alumno.edit', $alumno) }}">Editar</a> -->
+                <!-- <a class="btn btn-warning" href="{{ route('alumno.destroy', $alumno) }}">Borrar</a> -->
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
