@@ -79,10 +79,18 @@
                     @foreach( $alumno->materias as $materia )
                     <li>                       
                         {{ $materia->materia }}
+                        <!--
                         <form name="delete" action="{{ route('alumno.materia.destroy', [$alumno->id, $materia->id] ) }}">
                             <button class="btn btn-warning" name="delete" form="delete" value="Borrar">Borrar</button>
                         </form>
-                    </li>@endforeach
+                        -->
+                        
+                        {!! Form::open( ['route' => ['alumno.materia.destroy', $alumno, $materia], 'method' => 'delete' ] ) !!}
+                        <!-- {!! Form::hidden('_method', 'DELETE') !!} -->
+                        {!! Form::submit('Borrar') !!}
+                        {!! Form::close() !!}
+                    </li>
+                    @endforeach
                 </ul>
             </div> <!-- tile-body -->
         </div> <!-- tile -->

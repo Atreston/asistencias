@@ -44,7 +44,7 @@ class AlumnoMateriaController extends Controller
         $materium = Materia::find($request->input('materias') );
         $alumno->materias()->attach( $materium );
         //return route('alumno.show', ['alumnum', $alumno]);
-        return route('alumno.materia.show', ['materiun', $materium] );
+        return redirect()->route('alumno.show', $alumno );
     }
 
     /**
@@ -91,10 +91,10 @@ class AlumnoMateriaController extends Controller
      * @param  \App\Materia  $materia
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alumno $alumno, Materia $materum)
+    public function destroy(Alumno $alumno, Materia $materium)
     {
-        dd( $alumno, $materia );
+        //dd( $alumno, $materium );
         $alumno->materias()->detach($materium);
-        return route('alumno.show', ['alumnum' => $alumno]);
+        return redirect()->route('alumno.show', $alumno);
     }
 }

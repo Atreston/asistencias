@@ -82,10 +82,21 @@
                     <li>                       
                         <?php echo e($materia->materia); ?>
 
+                        <!--
                         <form name="delete" action="<?php echo e(route('alumno.materia.destroy', [$alumno->id, $materia->id] )); ?>">
                             <button class="btn btn-warning" name="delete" form="delete" value="Borrar">Borrar</button>
                         </form>
-                    </li><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        -->
+                        
+                        <?php echo Form::open( ['route' => ['alumno.materia.destroy', $alumno, $materia], 'method' => 'delete' ] ); ?>
+
+                        <!-- <?php echo Form::hidden('_method', 'DELETE'); ?> -->
+                        <?php echo Form::submit('Borrar'); ?>
+
+                        <?php echo Form::close(); ?>
+
+                    </li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div> <!-- tile-body -->
         </div> <!-- tile -->
